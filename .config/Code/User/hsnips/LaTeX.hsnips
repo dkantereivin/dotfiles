@@ -1,0 +1,112 @@
+snippet sign "Signature"
+Sincerely,
+David Kanter Eivin
+endsnippet
+
+snippet box "Box" A
+``rv = '┌' + '─'.repeat(t[0].length + 2) + '┐'``
+│ $1 │
+``rv = '└' + '─'.repeat(t[0].length + 2) + '┘'``
+endsnippet
+
+snippet beg "begin{} / end{}" bA
+\begin{$1}
+    $0
+\end{$1}
+endsnippet
+
+snippet dm "Math" wA
+\[
+$1
+\] $0
+endsnippet
+
+snippet `([A-Za-z])(\d)` "auto subscript a5 -> a_5" wA
+``rv = m[1] + '_' + m[2]``
+endsnippet
+
+snippet `([A-Za-z])_([A-Za-z|\d]+)\s` "auto subscript2 a_3f -> a_{3f} " wA
+``rv = m[1] + '_{' + m[2] + '} '``
+endsnippet
+
+snippet td "superscript" iA
+^{$1}$0
+endsnippet
+
+snippet // "Fraction //" iA
+\frac{$1}{$2}$0
+endsnippet
+
+snippet `((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)/` "Fraction n/" wA
+\frac{``rv = m[1]``}{$1}$0
+endsnippet
+
+snippet `^.*\)/` "() Fraction" wA
+``
+const stripped = m[0].slice(0, m[0].length - 1);
+let i = stripped.length - 1;
+let depth = 0;
+while (i > 0) {
+    if (stripped[i] == ')')
+        depth++;
+    if (stripped[i] == '(')
+        depth--;
+    if (depth == 0)
+        break;
+    i--;
+}
+rv = stripped.slice(0, i) + '\\frac{' + stripped.slice(i+1, stripped.length - 1) + '}';
+``{$1}$0
+endsnippet
+
+snippet -> "To" wA
+\to 
+endsnippet
+
+snippet => "Implies" wA
+\implies 
+endsnippet
+
+snippet <==> "Iff" wA
+\iff 
+endsnippet
+
+snippet lim "Default limit" w
+\lim{${1:n} \to ${2:\infty}} $0
+endsnippet
+
+snippet ... "Ellipses" wA
+\ldots 
+endsnippet
+
+snippet == "equals" iA
+&= $1 \\\\
+endsnippet
+
+snippet != "not equals" iA
+\neq 
+endsnippet
+
+snippet () "left( right)" iA
+\left( $1 \right) $0
+endsnippet
+
+snippet ddx "d/dx or other derivative" w
+\frac{${1:d}}{${2:dx}} 
+endsnippet
+
+snippet ** "cdot" iA
+\cdot
+endsnippet
+
+snippet _newnote "Template for New Notes" b
+\documentclass{note}
+\begin{document}
+    \title{$2}
+    \author{David Kanter Eivin\\400322148}
+    \date{${3:\today}}
+    \newcommand \lecnum{$1}
+
+    $0
+\end{document}
+endsnippet
